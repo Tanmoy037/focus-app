@@ -18,7 +18,7 @@ async def create_activity(
     db: Session = Depends(get_db)
 ):
     """Create a new activity (track focus session, completed todo, etc.)"""
-    db_activity = Activity(**activity.dict(), user_id=current_user.id)
+    db_activity = Activity(**activity.model_dump(), user_id=current_user.id)
     db.add(db_activity)
     db.commit()
     db.refresh(db_activity)

@@ -1,290 +1,248 @@
-# Focus App - Productivity & Goal Tracking API
+# Focus App - Goal Tracking with AI-Powered Video Recommendations
 
-A production-ready FastAPI backend for tracking goals, todos, and activities with YouTube-powered video recommendations to help users achieve their objectives.
-
-## Features
-
-- 🔐 **User Authentication**: Secure JWT-based authentication
-- ✅ **Todo Management**: Create, update, and track todos linked to goals
-- 🎯 **Goal Tracking**: Set and monitor progress towards your goals
-- 📊 **Activity Tracking**: Log focus sessions and track productivity
-- 🚀 **Boost Section**: YouTube API integration for personalized video recommendations
-  - Videos dynamically fetched based on user goals
-  - Search for specific motivation/learning content
-  - Get videos tailored to each goal category
-  - Trending motivational content
-- 📈 **Analytics**: Get insights on your productivity patterns
-- 🆓 **Free Hosting**: Works with free PostgreSQL (Neon, Supabase)
+A full-stack productivity application that helps users achieve their goals through task management and personalized YouTube video recommendations.
 
 ## Tech Stack
 
-- **FastAPI**: Modern, fast web framework for building APIs
-- **PostgreSQL**: Robust relational database (supports free hosting: Neon, Supabase)
-- **SQLAlchemy**: SQL toolkit and ORM
-- **JWT**: Secure token-based authentication
-- **Pydantic**: Data validation using Python type annotations
-- **YouTube Data API v3**: Dynamic video recommendations
-- **Requests**: HTTP library for API calls
+**Backend:**
+- FastAPI (Python)
+- PostgreSQL (Neon)
+- SQLAlchemy ORM
+- JWT Authentication
+- YouTube Data API v3
 
-## Database Schema
+**Frontend:**
+- React 18
+- Vite
+- React Router
+- Axios
 
-```
-Users
-├── Todos (linked to Goals)
-├── Goals
-└── Activities (focus sessions, completed tasks, etc.)
+## Features
 
-Videos (for AI recommendations)
-```
+- 🔐 User Authentication (JWT)
+- 🎯 Goal Management
+- ✅ Todo Management (linked to goals)
+- 📊 Activity Tracking
+- 🚀 AI-Powered YouTube Video Recommendations
+- 📈 Dashboard with Statistics
+- 🎨 Modern, Responsive UI
 
-## Quick Start
+## Prerequisites
 
-### Prerequisites
 - Python 3.8+
-- PostgreSQL database
-- YouTube API key
+- Node.js 16+
+- PostgreSQL database (or Neon account)
+- YouTube Data API key
 
-### Installation
+## Setup
+
+### 1. Clone Repository
 
 ```bash
-# Clone repository
-git clone <your-repo>
+git clone <your-repo-url>
 cd focus-app
+```
+
+### 2. Backend Setup
+
+```bash
+# Navigate to backend
+cd backend
 
 # Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Configure environment variables (edit .env with your credentials)
-# DATABASE_URL, SECRET_KEY, YOUTUBE_API_KEY
+# Create .env file
+cp .env.example .env
 
-# Run the application
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+# Edit .env with your credentials:
+# DATABASE_URL=postgresql://...
+# SECRET_KEY=your-secret-key
+# YOUTUBE_API_KEY=your-youtube-api-key
 ```
 
-### Testing with Postman
+### 3. Frontend Setup
 
-Import the `Focus_App_API.postman_collection.json` file into Postman:
+```bash
+# Navigate to frontend
+cd ../frontend
 
-1. Open Postman
-2. Click Import → Upload Files
-3. Select `Focus_App_API.postman_collection.json`
-4. The collection includes all endpoints with sample payloads
-5. Start with "Register User" → "Login" → Other endpoints
+# Install dependencies
+npm install
+```
 
-**Note**: The login request automatically saves the access token for subsequent requests.
+## Running the Application
 
-## API Documentation
+### Start Backend Server
 
-Once the server is running, access:
+```bash
+cd backend
+source venv/bin/activate
+uvicorn app.main:app --reload
+```
 
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
+Backend will run at: http://localhost:8000
+API Docs available at: http://localhost:8000/docs
+
+### Start Frontend Server
+
+```bash
+cd frontend
+npm run dev
+```
+
+Frontend will run at: http://localhost:3000
+
+## Usage
+
+1. Open http://localhost:3000
+2. Register a new account
+3. Login with your credentials
+4. Create your first goal
+5. Add todos linked to your goals
+6. Visit the Boost section to get personalized YouTube video recommendations!
 
 ## API Endpoints
 
 ### Authentication
 - `POST /api/users/register` - Register new user
-- `POST /api/users/login` - Login and get access token
-- `GET /api/users/me` - Get current user info
-- `PUT /api/users/me` - Update user info
-- `DELETE /api/users/me` - Delete user account
-
-### Todos
-- `POST /api/todos/` - Create todo
-- `GET /api/todos/` - List todos (with filters)
-- `GET /api/todos/{id}` - Get specific todo
-- `PUT /api/todos/{id}` - Update todo
-- `DELETE /api/todos/{id}` - Delete todo
+- `POST /api/users/login` - Login user
+- `GET /api/users/me` - Get current user
 
 ### Goals
-- `POST /api/goals/` - Create goal
-- `GET /api/goals/` - List goals (with filters)
-- `GET /api/goals/{id}` - Get specific goal
+- `GET /api/goals/` - List all goals
+- `POST /api/goals/` - Create new goal
 - `PUT /api/goals/{id}` - Update goal
 - `DELETE /api/goals/{id}` - Delete goal
 
+### Todos
+- `GET /api/todos/` - List all todos
+- `POST /api/todos/` - Create new todo
+- `PUT /api/todos/{id}` - Update todo
+- `DELETE /api/todos/{id}` - Delete todo
+
 ### Activities
-- `POST /api/activities/` - Log activity
 - `GET /api/activities/` - List activities
-- `GET /api/activities/{id}` - Get specific activity
+- `POST /api/activities/` - Log new activity
 - `GET /api/activities/stats/summary` - Get activity statistics
-- `DELETE /api/activities/{id}` - Delete activity
 
-### Boost (YouTube Video Recommendations)
-- `GET /api/boost/recommendations` - Get personalized YouTube videos based on goals
-- `GET /api/boost/goal/{goal_id}/videos` - Get videos for specific goal
-- `GET /api/boost/search?query=motivation` - Search YouTube videos
-- `GET /api/boost/trending` - Get trending motivational videos
-- `GET /api/boost/video/{video_id}/details` - Get detailed video info
+### Boost (Video Recommendations)
+- `GET /api/boost/recommendations` - Get personalized recommendations
+- `GET /api/boost/goal/{id}/videos` - Get videos for specific goal
+- `GET /api/boost/search` - Search YouTube videos
 
-## API Testing
+## Environment Variables
 
-### Using Postman (Recommended)
-
-The project includes a complete Postman collection with all endpoints and sample payloads.
-
-**Import Instructions:**
-1. Open Postman
-2. Import → `Focus_App_API.postman_collection.json`
-3. Collection includes automatic token management
-4. All request bodies are pre-filled with examples
-
-**Quick Test Flow:**
-1. `Authentication` → `Register User`
-2. `Authentication` → `Login` (token auto-saved)
-3. `Goals` → `Create Goal`
-4. `Boost` → `Get Personalized Recommendations`
-
-### Using cURL
-
-```bash
-# 1. Register
-curl -X POST "http://localhost:8000/api/users/register" \
-  -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com", "username": "johndoe", "password": "pass123", "full_name": "John Doe"}'
-
-# 2. Login
-curl -X POST "http://localhost:8000/api/users/login" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "username=user@example.com&password=pass123"
-
-# 3. Create Goal (replace YOUR_TOKEN)
-curl -X POST "http://localhost:8000/api/goals/" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Learn Python", "category": "learning"}'
-
-# 4. Get Video Recommendations
-curl -X GET "http://localhost:8000/api/boost/recommendations" \
-  -H "Authorization: Bearer YOUR_TOKEN"
-```
-
-## Database Models
-
-### User
-- Email, username, password (hashed)
-- Profile information
-- Timestamps
-
-### Todo
-- Title, description, priority
-- Completion status
-- Due date
-- Linked to goal (optional)
-
-### Goal
-- Title, description, category
-- Achievement status
-- Progress percentage
-- Target date
-
-### Activity
-- Activity type (focus_session, todo_completed, etc.)
-- Duration
-- Metadata (flexible JSON field)
-- Timestamp
-
-### YouTube Integration
-- Videos fetched dynamically from YouTube API
-- Personalized based on user goals and categories
-- 10,000 free searches per day
-- Real-time trending content
-
-## Project Structure
-
-```
-focus-app/
-├── app/
-│   ├── __init__.py
-│   ├── main.py              # FastAPI application entry
-│   ├── db/
-│   │   └── database.py      # Database connection
-│   ├── models/              # SQLAlchemy models
-│   │   ├── user.py
-│   │   ├── goal.py
-│   │   ├── todo.py
-│   │   ├── activity.py
-│   │   └── video.py
-│   ├── schemas/             # Pydantic schemas
-│   │   ├── user.py
-│   │   ├── goal.py
-│   │   ├── todo.py
-│   │   ├── activity.py
-│   │   └── video.py
-│   ├── routers/             # API endpoints
-│   │   ├── users.py
-│   │   ├── goals.py
-│   │   ├── todos.py
-│   │   ├── activities.py
-│   │   └── boost.py
-│   ├── services/
-│   │   └── youtube_service.py
-│   └── utils/
-│       └── auth.py          # Authentication utilities
-├── Focus_App_API.postman_collection.json
-├── requirements.txt
-├── .env
-├── .gitignore
-└── README.md
-```
-
-## Technologies
-
-- **FastAPI** - Modern Python web framework
-- **PostgreSQL** - Relational database
-- **SQLAlchemy** - ORM
-- **Pydantic** - Data validation
-- **JWT** - Authentication
-- **YouTube Data API v3** - Video recommendations
-- **bcrypt** - Password hashing
-
-## Deployment
-
-### Environment Variables
-
-Required environment variables (`.env`):
-
+### Backend (.env)
 ```env
 DATABASE_URL=postgresql://user:pass@host:port/database
 SECRET_KEY=your-secret-key-here
 YOUTUBE_API_KEY=your-youtube-api-key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
-API_HOST=0.0.0.0
-API_PORT=8000
 ```
 
-### Production Checklist
+### Frontend (Optional)
+```env
+VITE_API_URL=http://localhost:8000
+```
 
-- ✅ Use strong SECRET_KEY (32+ characters)
-- ✅ Restrict CORS origins in `app/main.py`
-- ✅ Enable HTTPS/SSL
-- ✅ Use managed PostgreSQL service
-- ✅ Implement API rate limiting
-- ✅ Set up monitoring and logging
-- ✅ Configure database backups
-- ✅ Monitor YouTube API quota
-- ✅ Add error tracking (e.g., Sentry)
+## Project Structure
 
-### Hosting Options
+```
+focus-app/
+├── backend/
+│   ├── app/
+│   │   ├── db/              # Database configuration
+│   │   ├── models/          # SQLAlchemy models
+│   │   ├── schemas/         # Pydantic schemas
+│   │   ├── routers/         # API endpoints
+│   │   ├── services/        # Business logic (YouTube API)
+│   │   ├── utils/           # Utilities (Auth)
+│   │   └── main.py          # FastAPI app
+│   ├── requirements.txt
+│   └── .env
+│
+└── frontend/
+    ├── src/
+    │   ├── components/      # React components
+    │   ├── pages/           # Page components
+    │   ├── contexts/        # React contexts
+    │   ├── services/        # API services
+    │   ├── App.jsx
+    │   └── main.jsx
+    ├── package.json
+    └── vite.config.js
+```
 
-**Database**: Neon, Supabase, AWS RDS, Google Cloud SQL  
-**Backend**: Railway, Render, Fly.io, AWS, Google Cloud  
-**Recommended**: Railway (backend) + Neon (database)
+## Testing
 
-## Contributing
+### Backend
+Import the Postman collection from `backend/Focus_App_API.postman_collection.json`
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Frontend
+1. Start both backend and frontend servers
+2. Open http://localhost:3000
+3. Register and test all features
+
+## Deployment
+
+### Backend
+Deploy to Railway, Render, or any Python hosting platform.
+
+### Frontend
+Deploy to Vercel, Netlify, or any static hosting platform.
+
+**Important:** Update `API_URL` in frontend to point to your deployed backend.
+
+## Troubleshooting
+
+### Backend Issues
+
+**ModuleNotFoundError:**
+```bash
+# Make sure virtual environment is activated
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Database Connection Error:**
+- Verify DATABASE_URL in .env
+- Ensure PostgreSQL is running
+
+**YouTube API Error:**
+- Verify YOUTUBE_API_KEY is set
+- Check API quota at Google Cloud Console
+
+### Frontend Issues
+
+**npm install fails:**
+```bash
+# Fix npm permissions
+sudo chown -R $(whoami) ~/.npm
+npm install
+```
+
+**CORS Errors:**
+- Ensure backend is running on port 8000
+- Check vite.config.js proxy settings
+
+**Cannot connect to API:**
+- Verify backend is running
+- Check API_URL in frontend
 
 ## License
 
-MIT License - feel free to use this project for learning and development.
+MIT
 
 ## Support
 
-For questions or issues, please create an issue in the repository.
+For issues or questions, please create an issue in the repository.
 
+---
+
+**Built with ❤️ using FastAPI, React, and YouTube Data API**

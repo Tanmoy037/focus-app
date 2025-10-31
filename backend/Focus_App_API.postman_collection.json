@@ -621,7 +621,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"activity_type\": \"focus_session\",\n  \"title\": \"Deep work on Python project\",\n  \"description\": \"Worked on FastAPI implementation\",\n  \"duration_minutes\": 90,\n  \"metadata\": {\n    \"mood\": \"productive\",\n    \"difficulty\": \"medium\",\n    \"distractions\": 2\n  }\n}"
+							"raw": "{\n  \"activity_type\": \"focus_session\",\n  \"title\": \"Deep work on Python project\",\n  \"description\": \"Worked on FastAPI implementation\",\n  \"duration_minutes\": 90,\n  \"extra_data\": {\n    \"mood\": \"productive\",\n    \"difficulty\": \"medium\",\n    \"distractions\": 2\n  }\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/activities/",

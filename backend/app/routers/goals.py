@@ -18,7 +18,7 @@ async def create_goal(
     db: Session = Depends(get_db)
 ):
     """Create a new goal"""
-    db_goal = Goal(**goal.dict(), user_id=current_user.id)
+    db_goal = Goal(**goal.model_dump(), user_id=current_user.id)
     db.add(db_goal)
     db.commit()
     db.refresh(db_goal)
@@ -83,7 +83,7 @@ async def update_goal(
             detail="Goal not found"
         )
     
-    update_data = goal_update.dict(exclude_unset=True)
+    update_data = goal_update.model_dump(exclude_unset=True)
     
     # If marking as achieved, set achieved_at
     if "is_achieved" in update_data and update_data["is_achieved"] and not goal.is_achieved:

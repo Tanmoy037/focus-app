@@ -7,7 +7,7 @@ class ActivityBase(BaseModel):
     title: str
     description: Optional[str] = None
     duration_minutes: Optional[int] = None
-    metadata: Optional[Dict[str, Any]] = None
+    extra_data: Optional[Dict[str, Any]] = None  # Renamed from metadata
 
 class ActivityCreate(ActivityBase):
     pass

@@ -12,7 +12,7 @@ class Activity(Base):
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     duration_minutes = Column(Integer, nullable=True)  # For focus sessions
-    metadata = Column(JSON, nullable=True)  # Store additional data like tags, mood, etc.
+    extra_data = Column(JSON, nullable=True)  # Store additional data like tags, mood, etc. (renamed from metadata)
     created_at = Column(DateTime, default=datetime.utcnow)
     
     # Relationships

@@ -18,7 +18,7 @@ async def create_todo(
     db: Session = Depends(get_db)
 ):
     """Create a new todo"""
-    db_todo = Todo(**todo.dict(), user_id=current_user.id)
+    db_todo = Todo(**todo.model_dump(), user_id=current_user.id)
     db.add(db_todo)
     db.commit()
     db.refresh(db_todo)
@@ -79,7 +79,7 @@ async def update_todo(
             detail="Todo not found"
         )
     
-    update_data = todo_update.dict(exclude_unset=True)
+    update_data = todo_update.model_dump(exclude_unset=True)
     
     # If marking as completed, set completed_at
     if "is_completed" in update_data and update_data["is_completed"] and not todo.is_completed:
