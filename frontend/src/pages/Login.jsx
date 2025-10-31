@@ -43,7 +43,7 @@ export default function Login() {
             WebkitTextFillColor: 'transparent',
             marginBottom: '8px'
           }}>
-            Welcome Back! 🎯
+            Welcome Back!
           </h1>
           <p style={{ color: '#6b7280' }}>Sign in to continue your focus journey</p>
         </div>
