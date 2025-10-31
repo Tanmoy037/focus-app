@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import engine, Base
-from app.routers import users, todos, goals, activities, boost
+from app.routers import users, todos, goals, activities, boost, music
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -27,6 +27,7 @@ app.include_router(todos.router)
 app.include_router(goals.router)
 app.include_router(activities.router)
 app.include_router(boost.router)
+app.include_router(music.router)
 
 @app.get("/")
 async def root():

@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import PremiumDashboard from './pages/PremiumDashboard';
+import Focus from './pages/Focus';
 import Goals from './pages/Goals';
 import Todos from './pages/Todos';
 import Boost from './pages/Boost';
@@ -47,7 +48,8 @@ function AppRoutes() {
       <Routes>
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><PremiumDashboard /></ProtectedRoute>} />
+        <Route path="/focus" element={<ProtectedRoute><Focus /></ProtectedRoute>} />
         <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
         <Route path="/todos" element={<ProtectedRoute><Todos /></ProtectedRoute>} />
         <Route path="/boost" element={<ProtectedRoute><Boost /></ProtectedRoute>} />

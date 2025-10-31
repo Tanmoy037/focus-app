@@ -82,10 +82,10 @@ export default function Goals() {
     <div className="container" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
         <div>
-          <h1 style={{ fontSize: '32px', fontWeight: '700', color: 'white', marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#f4f4f5', marginBottom: '8px' }}>
             My Goals 🎯
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.9)' }}>
+          <p style={{ color: '#a1a1aa' }}>
             {goals.filter(g => !g.is_achieved).length} active goals
           </p>
         </div>
@@ -108,8 +108,8 @@ export default function Goals() {
         {goals.length === 0 && (
           <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
             <div style={{ fontSize: '64px', marginBottom: '16px' }}>🎯</div>
-            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px' }}>No goals yet</h3>
-            <p style={{ color: '#6b7280', marginBottom: '20px' }}>Create your first goal to get started!</p>
+            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px', color: '#f4f4f5' }}>No goals yet</h3>
+            <p style={{ color: '#a1a1aa', marginBottom: '20px' }}>Create your first goal to get started!</p>
             <button onClick={() => setShowModal(true)} className="btn btn-primary">
               Create Goal
             </button>
@@ -121,10 +121,10 @@ export default function Goals() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>Create New Goal</h2>
+            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px', color: '#f4f4f5' }}>Create New Goal</h2>
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Title</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Title</label>
                 <input
                   type="text"
                   className="input"
@@ -135,7 +135,7 @@ export default function Goals() {
                 />
               </div>
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Description</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Description</label>
                 <textarea
                   className="textarea"
                   value={formData.description}
@@ -145,7 +145,7 @@ export default function Goals() {
                 />
               </div>
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Category</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Category</label>
                 <select
                   className="input"
                   value={formData.category}
@@ -160,7 +160,7 @@ export default function Goals() {
                 </select>
               </div>
               <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Target Date (Optional)</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Target Date (Optional)</label>
                 <input
                   type="date"
                   className="input"
@@ -185,10 +185,10 @@ export default function Goals() {
       {showVideos && selectedGoal && (
         <div className="modal-overlay" onClick={() => setShowVideos(false)}>
           <div className="modal" style={{ maxWidth: '800px' }} onClick={(e) => e.stopPropagation()}>
-            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '8px', color: '#f4f4f5' }}>
               Videos for: {selectedGoal.title}
             </h2>
-            <p style={{ color: '#6b7280', marginBottom: '24px' }}>Recommended videos to help you achieve this goal</p>
+            <p style={{ color: '#a1a1aa', marginBottom: '24px' }}>Recommended videos to help you achieve this goal</p>
             
             {videos.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '40px 20px' }}>
@@ -206,14 +206,21 @@ export default function Goals() {
                       display: 'flex',
                       gap: '16px',
                       padding: '12px',
-                      border: '1px solid #e5e7eb',
+                      border: '1px solid #27272a',
                       borderRadius: '8px',
                       textDecoration: 'none',
                       color: 'inherit',
-                      transition: 'all 0.2s'
+                      transition: 'all 0.2s',
+                      background: '#0a0a0a'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9fafb'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#18181b';
+                      e.currentTarget.style.borderColor = '#8b5cf6';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#0a0a0a';
+                      e.currentTarget.style.borderColor = '#27272a';
+                    }}
                   >
                     <img
                       src={video.thumbnail_url}
@@ -221,8 +228,8 @@ export default function Goals() {
                       style={{ width: '160px', height: '90px', objectFit: 'cover', borderRadius: '6px' }}
                     />
                     <div style={{ flex: 1 }}>
-                      <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>{video.title}</h3>
-                      <p style={{ fontSize: '12px', color: '#6b7280' }}>{video.channel_title}</p>
+                      <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '4px', color: '#f4f4f5' }}>{video.title}</h3>
+                      <p style={{ fontSize: '12px', color: '#71717a' }}>{video.channel_title}</p>
                     </div>
                   </a>
                 ))}
@@ -261,7 +268,7 @@ function GoalCard({ goal, onDelete, onMarkAchieved, onViewVideos }) {
               fontSize: '20px',
               fontWeight: '600',
               textDecoration: goal.is_achieved ? 'line-through' : 'none',
-              color: goal.is_achieved ? '#9ca3af' : '#111827'
+              color: goal.is_achieved ? '#52525b' : '#f4f4f5'
             }}>
               {goal.title}
             </h3>
@@ -271,9 +278,9 @@ function GoalCard({ goal, onDelete, onMarkAchieved, onViewVideos }) {
             {goal.is_achieved && <span className="badge badge-success">✓ Achieved</span>}
           </div>
           {goal.description && (
-            <p style={{ color: '#6b7280', marginBottom: '12px' }}>{goal.description}</p>
+            <p style={{ color: '#a1a1aa', marginBottom: '12px' }}>{goal.description}</p>
           )}
-          <div style={{ display: 'flex', gap: '16px', fontSize: '14px', color: '#9ca3af' }}>
+          <div style={{ display: 'flex', gap: '16px', fontSize: '14px', color: '#71717a' }}>
             <span>Progress: {goal.progress_percentage}%</span>
             {goal.target_date && <span>Target: {format(new Date(goal.target_date), 'MMM dd, yyyy')}</span>}
           </div>

@@ -19,13 +19,25 @@ A full-stack productivity application that helps users achieve their goals throu
 
 ## Features
 
-- 🔐 User Authentication (JWT)
-- 🎯 Goal Management
-- ✅ Todo Management (linked to goals)
-- 📊 Activity Tracking
-- 🚀 AI-Powered YouTube Video Recommendations
-- 📈 Dashboard with Statistics
-- 🎨 Modern, Responsive UI
+### Core Productivity Flow:
+- 🎯 **Goal Management** - Set and track your objectives
+- ✅ **Todo Management** - Break goals into actionable tasks
+- ⚡ **Focus Timer** - Pomodoro & Custom timers with premium visuals
+  - Choose Coffee ☕ or Hourglass ⏳ animation
+  - Customizable work/break durations
+  - Select which todo you're working on
+- 📊 **Smart Tracking** - Auto-links Goals → Todos → Focus Sessions
+- 📈 **Premium Dashboard** - See focus time per goal, todo completion rates
+
+### Boost Features:
+- 🚀 **YouTube Recommendations** - AI-powered videos based on your goals
+- 🎵 **Focus Music** - Lofi, Rain, Ambient, Nature & Classical (YouTube streams)
+
+### Premium Experience:
+- 🎨 Dark theme UI (developer-friendly)
+- 🔐 Secure JWT authentication
+- 🔗 Everything interconnected
+- ✨ Smooth animations throughout
 
 ## Prerequisites
 
@@ -134,6 +146,11 @@ Frontend will run at: http://localhost:3000
 - `GET /api/boost/recommendations` - Get personalized recommendations
 - `GET /api/boost/goal/{id}/videos` - Get videos for specific goal
 - `GET /api/boost/search` - Search YouTube videos
+
+### Music (Focus Music)
+- `GET /api/music/playlists` - List all focus playlists (Lofi, Rain, Ambient, Nature, Classical)
+- `GET /api/music/playlists/{id}` - Get specific playlist with tracks
+- `GET /api/music/recommended` - Get time-based music recommendations
 
 ## Environment Variables
 

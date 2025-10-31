@@ -56,5 +56,10 @@ export const getGoalVideos = (goalId, maxResults = 5) =>
 export const searchVideos = (query, maxResults = 10) => 
   api.get('/api/boost/search', { params: { query, max_results: maxResults } });
 
+// Music (Focus Music)
+export const getMusicPlaylists = () => api.get('/api/music/playlists');
+export const getPlaylist = (playlistId) => api.get(`/api/music/playlists/${playlistId}`);
+export const getRecommendedMusic = () => api.get('/api/music/recommended');
+
 export default api;
 

@@ -81,10 +81,10 @@ export default function Todos() {
     <div className="container" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
         <div>
-          <h1 style={{ fontSize: '32px', fontWeight: '700', color: 'white', marginBottom: '8px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: '700', color: '#f4f4f5', marginBottom: '8px' }}>
             My Todos ✅
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.9)' }}>
+          <p style={{ color: '#a1a1aa' }}>
             {todos.filter(t => !t.is_completed).length} active tasks
           </p>
         </div>
@@ -101,9 +101,10 @@ export default function Todos() {
             onClick={() => setFilter(f)}
             className="btn"
             style={{
-              background: filter === f ? 'white' : 'rgba(255,255,255,0.2)',
-              color: filter === f ? '#667eea' : 'white',
-              textTransform: 'capitalize'
+              background: filter === f ? '#8b5cf6' : '#27272a',
+              color: filter === f ? 'white' : '#a1a1aa',
+              textTransform: 'capitalize',
+              border: filter === f ? '1px solid #a855f7' : '1px solid #3f3f46'
             }}
           >
             {f}
@@ -125,10 +126,10 @@ export default function Todos() {
         {filteredTodos.length === 0 && (
           <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
             <div style={{ fontSize: '64px', marginBottom: '16px' }}>✅</div>
-            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px', color: '#f4f4f5' }}>
               {filter === 'completed' ? 'No completed tasks yet' : 'No tasks yet'}
             </h3>
-            <p style={{ color: '#6b7280', marginBottom: '20px' }}>
+            <p style={{ color: '#a1a1aa', marginBottom: '20px' }}>
               {filter === 'completed' ? 'Complete some tasks to see them here!' : 'Create your first task to get started!'}
             </p>
             {filter !== 'completed' && (
@@ -144,10 +145,10 @@ export default function Todos() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px' }}>Create New Task</h2>
+            <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '24px', color: '#f4f4f5' }}>Create New Task</h2>
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Title</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Title</label>
                 <input
                   type="text"
                   className="input"
@@ -158,7 +159,7 @@ export default function Todos() {
                 />
               </div>
               <div style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Description</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Description</label>
                 <textarea
                   className="textarea"
                   value={formData.description}
@@ -169,7 +170,7 @@ export default function Todos() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Priority</label>
+                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Priority</label>
                   <select
                     className="input"
                     value={formData.priority}
@@ -181,7 +182,7 @@ export default function Todos() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Due Date</label>
+                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Due Date</label>
                   <input
                     type="date"
                     className="input"
@@ -191,7 +192,7 @@ export default function Todos() {
                 </div>
               </div>
               <div style={{ marginBottom: '24px' }}>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Link to Goal (Optional)</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>Link to Goal (Optional)</label>
                 <select
                   className="input"
                   value={formData.goal_id || ''}
@@ -247,7 +248,7 @@ function TodoItem({ todo, onToggle, onDelete, goals }) {
             height: '20px',
             cursor: 'pointer',
             marginTop: '2px',
-            accentColor: '#667eea'
+            accentColor: '#8b5cf6'
           }}
         />
         <div style={{ flex: 1 }}>
@@ -256,7 +257,7 @@ function TodoItem({ todo, onToggle, onDelete, goals }) {
               fontSize: '16px',
               fontWeight: '600',
               textDecoration: todo.is_completed ? 'line-through' : 'none',
-              color: todo.is_completed ? '#9ca3af' : '#111827'
+              color: todo.is_completed ? '#52525b' : '#f4f4f5'
             }}>
               {todo.title}
             </h3>
@@ -268,11 +269,11 @@ function TodoItem({ todo, onToggle, onDelete, goals }) {
             </span>
           </div>
           {todo.description && (
-            <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '8px' }}>
+            <p style={{ color: '#a1a1aa', fontSize: '14px', marginBottom: '8px' }}>
               {todo.description}
             </p>
           )}
-          <div style={{ display: 'flex', gap: '16px', fontSize: '13px', color: '#9ca3af' }}>
+          <div style={{ display: 'flex', gap: '16px', fontSize: '13px', color: '#71717a' }}>
             {goalForTodo && <span>🎯 {goalForTodo.title}</span>}
             {todo.due_date && <span>📅 Due: {format(new Date(todo.due_date), 'MMM dd, yyyy')}</span>}
           </div>

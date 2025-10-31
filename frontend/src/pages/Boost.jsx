@@ -47,7 +47,9 @@ export default function Boost() {
         <h1 style={{
           fontSize: '48px',
           fontWeight: '700',
-          color: 'white',
+          background: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
           marginBottom: '16px',
           display: 'flex',
           alignItems: 'center',
@@ -57,7 +59,7 @@ export default function Boost() {
           <span>🚀</span>
           <span>Boost</span>
         </h1>
-        <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '18px', maxWidth: '600px', margin: '0 auto' }}>
+        <p style={{ color: '#a1a1aa', fontSize: '18px', maxWidth: '600px', margin: '0 auto' }}>
           Get personalized video recommendations based on your goals to help you achieve them faster
         </p>
       </div>
@@ -84,9 +86,9 @@ export default function Boost() {
       {/* Search Results */}
       {searchResults.length > 0 && (
         <div style={{ marginBottom: '48px' }}>
-          <div className="card" style={{ marginBottom: '20px', background: 'rgba(255,255,255,0.1)', border: 'none' }}>
+          <div className="card" style={{ marginBottom: '20px', background: '#18181b', border: '1px solid #27272a' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 style={{ fontSize: '24px', fontWeight: '600', color: 'white' }}>
+              <h2 style={{ fontSize: '24px', fontWeight: '600', color: '#f4f4f5' }}>
                 Search Results
               </h2>
               <button
@@ -133,10 +135,10 @@ export default function Boost() {
         ) : videos.length === 0 ? (
           <div className="card" style={{ textAlign: 'center', padding: '60px 20px' }}>
             <div style={{ fontSize: '64px', marginBottom: '16px' }}>🎯</div>
-            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px', color: '#f4f4f5' }}>
               No recommendations yet
             </h3>
-            <p style={{ color: '#6b7280', marginBottom: '20px' }}>
+            <p style={{ color: '#a1a1aa', marginBottom: '20px' }}>
               Create some goals to get personalized video recommendations!
             </p>
           </div>
@@ -156,9 +158,9 @@ export default function Boost() {
       {/* Pro Tip */}
       <div className="card" style={{
         marginTop: '48px',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
         color: 'white',
-        border: 'none'
+        border: '1px solid rgba(139, 92, 246, 0.3)'
       }}>
         <div style={{ display: 'flex', alignItems: 'start', gap: '16px' }}>
           <div style={{ fontSize: '32px' }}>💡</div>
@@ -166,7 +168,7 @@ export default function Boost() {
             <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
               Pro Tip
             </h3>
-            <p style={{ opacity: 0.9, lineHeight: '1.6' }}>
+            <p style={{ opacity: 0.95, lineHeight: '1.6' }}>
               The more specific your goals are, the better video recommendations you'll get!
               Try creating goals with detailed titles and categories to discover the most relevant content.
             </p>
@@ -189,11 +191,21 @@ function VideoCard({ video }) {
         padding: '0',
         overflow: 'hidden',
         height: '100%',
-        transition: 'transform 0.2s',
-        cursor: 'pointer'
+        transition: 'all 0.2s',
+        cursor: 'pointer',
+        background: '#18181b',
+        border: '1px solid #27272a'
       }}
-      onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-      onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-4px)';
+        e.currentTarget.style.borderColor = '#8b5cf6';
+        e.currentTarget.style.boxShadow = '0 8px 24px rgba(139, 92, 246, 0.3)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.borderColor = '#27272a';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
       >
         <div style={{ position: 'relative' }}>
           <img
@@ -224,7 +236,7 @@ function VideoCard({ video }) {
             fontSize: '16px',
             fontWeight: '600',
             marginBottom: '8px',
-            color: '#111827',
+            color: '#f4f4f5',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             display: '-webkit-box',
@@ -236,7 +248,7 @@ function VideoCard({ video }) {
           </h3>
           <p style={{
             fontSize: '14px',
-            color: '#6b7280',
+            color: '#71717a',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap'
@@ -246,12 +258,12 @@ function VideoCard({ video }) {
           <div style={{
             marginTop: '12px',
             padding: '8px 12px',
-            background: '#f3f4f6',
+            background: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
             borderRadius: '6px',
             textAlign: 'center',
             fontSize: '13px',
             fontWeight: '600',
-            color: '#667eea'
+            color: 'white'
           }}>
             Watch Now →
           </div>

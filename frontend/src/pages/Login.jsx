@@ -38,14 +38,14 @@ export default function Login() {
           <h1 style={{
             fontSize: '32px',
             fontWeight: '700',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             marginBottom: '8px'
           }}>
             Welcome Back!
           </h1>
-          <p style={{ color: '#6b7280' }}>Sign in to continue your focus journey</p>
+          <p style={{ color: '#a1a1aa' }}>Sign in to continue your focus journey</p>
         </div>
 
         {error && (
@@ -63,7 +63,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#374151' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>
               Email
             </label>
             <input
@@ -77,7 +77,7 @@ export default function Login() {
           </div>
 
           <div style={{ marginBottom: '24px' }}>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#374151' }}>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#e4e4e7' }}>
               Password
             </label>
             <input
@@ -94,9 +94,9 @@ export default function Login() {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
-          <p style={{ textAlign: 'center', color: '#6b7280', fontSize: '14px' }}>
+          <p style={{ textAlign: 'center', color: '#a1a1aa', fontSize: '14px' }}>
             Don't have an account?{' '}
-            <Link to="/register" style={{ color: '#667eea', fontWeight: '600', textDecoration: 'none' }}>
+            <Link to="/register" style={{ color: '#8b5cf6', fontWeight: '600', textDecoration: 'none' }}>
               Sign up
             </Link>
           </p>
