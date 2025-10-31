@@ -1,0 +1,982 @@
+{
+	"info": {
+		"name": "Focus App API",
+		"description": "Complete API collection for Focus App - Productivity & Goal Tracking with YouTube Recommendations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "focus-app-v1"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    pm.environment.set(\"user_id\", pm.response.json().id);",
+									"    pm.environment.set(\"user_email\", pm.response.json().email);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"username\": \"johndoe\",\n  \"password\": \"SecurePass123!\",\n  \"full_name\": \"John Doe\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "register"]
+						},
+						"description": "Register a new user account"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"access_token\", jsonData.access_token);",
+									"    console.log(\"Access token saved:\", jsonData.access_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "john.doe@example.com",
+									"description": "Email address (used as username)"
+								},
+								{
+									"key": "password",
+									"value": "SecurePass123!",
+									"description": "User password"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "login"]
+						},
+						"description": "Login and receive access token (automatically saved to environment)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/me",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "me"]
+						},
+						"description": "Get current authenticated user profile"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/me",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "me"]
+						},
+						"description": "Update current user information"
+					},
+					"response": []
+				}
+			],
+			"description": "User authentication and profile management endpoints"
+		},
+		{
+			"name": "Goals",
+			"item": [
+				{
+					"name": "Create Goal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    pm.environment.set(\"goal_id\", pm.response.json().id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Learn Python Programming\",\n  \"description\": \"Master Python for backend development and data science\",\n  \"category\": \"learning\",\n  \"target_date\": \"2025-12-31T23:59:59\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/goals/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "goals", ""]
+						},
+						"description": "Create a new goal. Categories: learning, career, health, personal, productivity, finance"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Goals",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/goals/?skip=0&limit=100",
+							"host": ["{{base_url}}"],
+							"path": ["api", "goals", ""],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "achieved",
+									"value": "false",
+									"disabled": true,
+									"description": "Filter by achievement status"
+								},
+								{
+									"key": "category",
+									"value": "learning",
+									"disabled": true,
+									"description": "Filter by category"
+								}
+							]
+						},
+						"description": "Get all goals for current user with optional filters"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Goal by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/goals/{{goal_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "goals", "{{goal_id}}"]
+						},
+						"description": "Get a specific goal by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Goal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Master Python Programming\",\n  \"progress_percentage\": 45,\n  \"description\": \"Advanced Python skills including async, decorators, and frameworks\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/goals/{{goal_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "goals", "{{goal_id}}"]
+						},
+						"description": "Update goal details (all fields optional)"
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Goal as Achieved",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"is_achieved\": true,\n  \"progress_percentage\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/goals/{{goal_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "goals", "{{goal_id}}"]
+						},
+						"description": "Mark a goal as achieved"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Goal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/goals/{{goal_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "goals", "{{goal_id}}"]
+						},
+						"description": "Delete a goal"
+					},
+					"response": []
+				}
+			],
+			"description": "Goal management endpoints"
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Create Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    pm.environment.set(\"todo_id\", pm.response.json().id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Complete Python FastAPI tutorial\",\n  \"description\": \"Watch and code along with FastAPI crash course\",\n  \"priority\": \"high\",\n  \"due_date\": \"2025-11-15T18:00:00\",\n  \"goal_id\": {{goal_id}}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/todos/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "todos", ""]
+						},
+						"description": "Create a new todo. Priority: low, medium, high"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Todos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/todos/?skip=0&limit=100",
+							"host": ["{{base_url}}"],
+							"path": ["api", "todos", ""],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "completed",
+									"value": "false",
+									"disabled": true,
+									"description": "Filter by completion status"
+								}
+							]
+						},
+						"description": "Get all todos for current user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todo by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/todos/{{todo_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "todos", "{{todo_id}}"]
+						},
+						"description": "Get a specific todo by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Todo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Complete Python FastAPI tutorial - UPDATED\",\n  \"priority\": \"medium\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/todos/{{todo_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "todos", "{{todo_id}}"]
+						},
+						"description": "Update todo details"
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Todo as Completed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"is_completed\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/todos/{{todo_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "todos", "{{todo_id}}"]
+						},
+						"description": "Mark a todo as completed"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Todo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/todos/{{todo_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "todos", "{{todo_id}}"]
+						},
+						"description": "Delete a todo"
+					},
+					"response": []
+				}
+			],
+			"description": "Todo management endpoints"
+		},
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Log Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    pm.environment.set(\"activity_id\", pm.response.json().id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"activity_type\": \"focus_session\",\n  \"title\": \"Deep work on Python project\",\n  \"description\": \"Worked on FastAPI implementation\",\n  \"duration_minutes\": 90,\n  \"metadata\": {\n    \"mood\": \"productive\",\n    \"difficulty\": \"medium\",\n    \"distractions\": 2\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/activities/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activities", ""]
+						},
+						"description": "Log a new activity (focus session, completed task, etc.)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Activities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/activities/?skip=0&limit=100",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activities", ""],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "activity_type",
+									"value": "focus_session",
+									"disabled": true,
+									"description": "Filter by activity type"
+								},
+								{
+									"key": "days",
+									"value": "7",
+									"disabled": true,
+									"description": "Get activities from last N days"
+								}
+							]
+						},
+						"description": "Get all activities for current user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Activity Statistics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/activities/stats/summary?days=7",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activities", "stats", "summary"],
+							"query": [
+								{
+									"key": "days",
+									"value": "7",
+									"description": "Number of days to analyze"
+								}
+							]
+						},
+						"description": "Get activity statistics and insights"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Activity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/activities/{{activity_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["api", "activities", "{{activity_id}}"]
+						},
+						"description": "Delete an activity"
+					},
+					"response": []
+				}
+			],
+			"description": "Activity tracking and statistics endpoints"
+		},
+		{
+			"name": "Boost (YouTube Videos)",
+			"item": [
+				{
+					"name": "Get Personalized Recommendations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/boost/recommendations?max_results=5",
+							"host": ["{{base_url}}"],
+							"path": ["api", "boost", "recommendations"],
+							"query": [
+								{
+									"key": "max_results",
+									"value": "5",
+									"description": "Number of videos to return (max 10)"
+								}
+							]
+						},
+						"description": "Get personalized YouTube video recommendations based on your goals"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Videos for Specific Goal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/boost/goal/{{goal_id}}/videos?max_results=5",
+							"host": ["{{base_url}}"],
+							"path": ["api", "boost", "goal", "{{goal_id}}", "videos"],
+							"query": [
+								{
+									"key": "max_results",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Get YouTube videos specifically for one goal"
+					},
+					"response": []
+				},
+				{
+					"name": "Search YouTube Videos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/boost/search?query=python programming tutorial&max_results=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "boost", "search"],
+							"query": [
+								{
+									"key": "query",
+									"value": "python programming tutorial",
+									"description": "Search query"
+								},
+								{
+									"key": "max_results",
+									"value": "10",
+									"description": "Number of results (max 50)"
+								}
+							]
+						},
+						"description": "Search YouTube for any topic"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trending Videos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/boost/trending?max_results=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "boost", "trending"],
+							"query": [
+								{
+									"key": "max_results",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Get trending motivational and productivity videos"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Video Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/boost/video/dQw4w9WgXcQ/details",
+							"host": ["{{base_url}}"],
+							"path": ["api", "boost", "video", "dQw4w9WgXcQ", "details"]
+						},
+						"description": "Get detailed information about a specific YouTube video"
+					},
+					"response": []
+				}
+			],
+			"description": "YouTube video recommendation and search endpoints"
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "API Root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": ["{{base_url}}"],
+							"path": [""]
+						},
+						"description": "Check API is running"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": ["{{base_url}}"],
+							"path": ["health"]
+						},
+						"description": "Health check endpoint"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "goal_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "todo_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "activity_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
