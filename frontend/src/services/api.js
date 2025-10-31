@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'https://focus-app-iw3c.onrender.com';
 
 const api = axios.create({
   baseURL: API_URL,
